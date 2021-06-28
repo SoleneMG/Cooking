@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Cooking</string>
+    <string name="email_edit_text">Enter your email</string>
+    <string name="password_edit_text">Enter your password</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTER</string>
+    <string name="language">Language</string>
+    <string-array name="language_label_spinner">
+        <item>English</item>
+        <item>French</item>
+    </string-array>
+</resources>
