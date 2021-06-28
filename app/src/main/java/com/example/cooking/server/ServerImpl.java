@@ -21,22 +21,8 @@ public class ServerImpl implements Server {
     HttpURLConnection httpURLClient;
     public final Gson gson = new Gson();
 
-
-    private void sendGet(String url) throws Exception {
-        EXECUTOR.submit(() -> {
-            try {
-                HttpURLConnection httpURLClient = (HttpURLConnection) new URL(url).openConnection();
-                readStream();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-    }
-
     @Override
-    public void sendPost(String email, String password, String language) {
+    public void sendPostRegister(String email, String password, String language) {
         RegisterJson registerJson = new RegisterJson(email, password, language);
         String jsonBody = gson.toJson(registerJson);
         EXECUTOR.submit(() -> {
@@ -63,6 +49,11 @@ public class ServerImpl implements Server {
             }
 
         });
+    }
+
+    @Override
+    public void sendPostLogin(String email, String password) {
+
     }
 
 

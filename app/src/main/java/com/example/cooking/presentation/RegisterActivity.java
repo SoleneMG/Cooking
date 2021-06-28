@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cooking.Inject;
 import com.example.cooking.R;
-import com.example.cooking.domain.MainActivityLogic;
+import com.example.cooking.domain.RegisterActivityLogic;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    MainActivityLogic logic = Inject.mainActivityLogic();
+public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private RegisterActivityLogic logic = Inject.registerActivityLogic();
     private EditText email, password;
     private Spinner spinner;
     private String language;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -53,15 +53,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (email != null && password != null && language != null) {
             String emailString = email.getText().toString();
             String passwordString = password.getText().toString();
-            logic.connexion(emailString, passwordString, language);
+            logic.register(emailString, passwordString, language);
         }
     }
 
-    public void Connexion(View view) {
-        if (email != null && password != null && language != null) {
-            String emailString = email.getText().toString();
-            String passwordString = password.getText().toString();
-            logic.connexion(emailString, passwordString, language);
-        }
-    }
 }

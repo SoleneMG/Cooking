@@ -2,5 +2,8 @@ package com.example.cooking.server;
 
 public interface Server {
 
-    public void sendPost(String email, String password, String language);
+    void sendPostRegister(String email, String password, String language);
+
+    void sendPostLogin(String email, String password);
 }
+
