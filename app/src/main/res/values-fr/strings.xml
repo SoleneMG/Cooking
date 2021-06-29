@@ -6,6 +6,7 @@
     <string name="login">CONNECTION</string>
     <string name="register">S\'ENREGISTRER</string>
     <string name="language">Langage</string>
+    <string name="refresh_button_snackbar">ACTUALISER</string>
     <string-array name="language_label_spinner">
         <item>Anglais</item>
         <item>Français</item>

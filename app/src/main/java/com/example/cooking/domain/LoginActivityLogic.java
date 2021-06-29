@@ -12,6 +12,6 @@ public class LoginActivityLogic {
 
     public void login(String email, String password) {
 
-        server.sendPostLogin(email, password);
+      //  server.sendPostLogin(email, password);
     }
 }

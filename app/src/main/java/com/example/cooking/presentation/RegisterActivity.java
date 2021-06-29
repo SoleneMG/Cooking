@@ -1,5 +1,7 @@
 package com.example.cooking.presentation;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,9 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cooking.Inject;
 import com.example.cooking.R;
 import com.example.cooking.domain.RegisterActivityLogic;
+import com.example.cooking.server.NetworkResponse;
+import com.example.cooking.server.NetworkResponseFailure;
+import com.example.cooking.server.NetworkResponseSuccess;
+import com.example.cooking.server.ServerImpl;
+import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private RegisterActivityLogic logic = Inject.registerActivityLogic();
+    private final RegisterActivityLogic logic = Inject.registerActivityLogic();
     private EditText email, password;
     private Spinner spinner;
     private String language;
@@ -53,8 +60,27 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         if (email != null && password != null && language != null) {
             String emailString = email.getText().toString();
             String passwordString = password.getText().toString();
-            logic.register(emailString, passwordString, language);
+            logic.register(emailString, passwordString, language, new ServerImpl.MyCallback() {
+                @Override
+                public void onComplete(NetworkResponse networkResponse) {
+                    if(networkResponse instanceof NetworkResponseSuccess){
+                        Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Snackbar.make(RegisterActivity.this, view, "It doesn't work. Error "+ ((NetworkResponseFailure) networkResponse).error.code, Snackbar.LENGTH_SHORT)
+                                .setAction(R.string.refresh_button_snackbar, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                })
+                        .show();
+                    }
+                }
+            });
         }
     }
+
+
 
 }
