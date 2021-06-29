@@ -18,6 +18,7 @@ import com.example.cooking.server.NetworkResponse;
 import com.example.cooking.server.NetworkResponseFailure;
 import com.example.cooking.server.NetworkResponseSuccess;
 import com.example.cooking.server.ServerImpl;
+import com.example.cooking.server.model.Register;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -67,12 +68,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         Intent intent = new Intent(view.getContext(), LoginActivity.class);
                         startActivity(intent);
                     } else {
-                        Snackbar.make(RegisterActivity.this, view, "It doesn't work. Error "+ ((NetworkResponseFailure) networkResponse).error.code, Snackbar.LENGTH_SHORT)
-                                .setAction(R.string.refresh_button_snackbar, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-
-                                    }
+                        Snackbar.make(RegisterActivity.this, view, "It doesn't work. Error "+ ((NetworkResponseFailure) networkResponse).error.code, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.refresh_button_snackbar, v -> {
+                                    Register(view);
                                 })
                         .show();
                     }
