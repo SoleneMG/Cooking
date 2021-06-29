@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.core.os.HandlerCompat;
 
 import com.example.cooking.server.model.Error;
+import com.example.cooking.server.model.ErrorJson;
 import com.example.cooking.server.model.LoginJson;
 import com.example.cooking.server.model.RegisterJson;
 import com.example.cooking.server.model.User;
@@ -96,7 +97,8 @@ public class ServerImpl implements Server {
                     } else {
                         inputStream = httpURLClient.getErrorStream();
                         response = readStream(inputStream);
-                        handleResponse(new NetworkResponseFailure(new Error(status)), myCallback);
+                        ErrorJson errorJson = gson.fromJson(response, ErrorJson.class);
+                        handleResponse(new NetworkResponseFailure(new Error(errorJson.error.code, errorJson.error.status, errorJson.error.reasonCode, errorJson.error.reasonStatus)), myCallback);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

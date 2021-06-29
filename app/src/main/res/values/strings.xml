@@ -6,6 +6,7 @@
     <string name="register">REGISTER</string>
     <string name="language">Language</string>
     <string name="refresh_button_snackbar">REFRESH</string>
+    <string name="error_message">\"Something went wrong : \"</string>
     <string-array name="language_label_spinner">
         <item>English</item>
         <item>French</item>

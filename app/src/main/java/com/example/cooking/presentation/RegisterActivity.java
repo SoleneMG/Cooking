@@ -1,6 +1,5 @@
 package com.example.cooking.presentation;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.example.cooking.server.NetworkResponse;
 import com.example.cooking.server.NetworkResponseFailure;
 import com.example.cooking.server.NetworkResponseSuccess;
 import com.example.cooking.server.ServerImpl;
-import com.example.cooking.server.model.Register;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -64,21 +62,24 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             logic.register(emailString, passwordString, language, new ServerImpl.MyCallback() {
                 @Override
                 public void onComplete(NetworkResponse networkResponse) {
-                    if(networkResponse instanceof NetworkResponseSuccess){
+                    if (networkResponse instanceof NetworkResponseSuccess) {
                         Intent intent = new Intent(view.getContext(), LoginActivity.class);
                         startActivity(intent);
                     } else {
-                        Snackbar.make(RegisterActivity.this, view, "It doesn't work. Error "+ ((NetworkResponseFailure) networkResponse).error.code, Snackbar.LENGTH_LONG)
+                        Snackbar.make(RegisterActivity.this, view, getString(R.string.error_message) + ((NetworkResponseFailure) networkResponse).error.code +" "+ ((NetworkResponseFailure) networkResponse).error.reasonStatus, Snackbar.LENGTH_LONG)
                                 .setAction(R.string.refresh_button_snackbar, v -> {
                                     Register(view);
                                 })
-                        .show();
+                                .setBackgroundTint(getColor(R.color.primary))
+                                .setActionTextColor(getColor(R.color.white))
+                                .setTextColor(getColor(R.color.white))
+                                .setDuration(2000)
+                                .show();
                     }
                 }
             });
         }
     }
-
 
 
 }
