@@ -1,4 +1,4 @@
-package com.example.cooking.server;
+package com.example.cooking.server.serverImpl;
 
 
 import android.os.Handler;
@@ -7,11 +7,15 @@ import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 
-import com.example.cooking.server.model.Error;
+import com.example.cooking.server.MyCallback;
+import com.example.cooking.server.model.NetworkResponse;
+import com.example.cooking.server.model.NetworkResponseFailure;
+import com.example.cooking.server.model.NetworkResponseSuccess;
+import com.example.cooking.server.Server;
+import com.example.cooking.model.Error;
 import com.example.cooking.server.model.ErrorJson;
-import com.example.cooking.server.model.LoginJson;
 import com.example.cooking.server.model.RegisterJson;
-import com.example.cooking.server.model.User;
+import com.example.cooking.model.User;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -25,16 +29,17 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.cooking.server.serverImpl.RetrofitImpl.EXECUTOR;
+
 public class ServerImpl implements Server {
-    public static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(1);
+
     private final Handler myHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     private final String urlRegister = "http://192.168.1.17:8080/api/1/register";
     HttpURLConnection httpURLClient;
     public final Gson gson = new Gson();
-
-    public interface MyCallback {
-       void onComplete(NetworkResponse networkResponse);
-    }
 
     @Override
     public void sendPostRegister(String email, String password, String language, MyCallback myCallback) {
@@ -43,12 +48,6 @@ public class ServerImpl implements Server {
         httpRequest(jsonBody, myCallback);
     }
 
-   /* @Override
-    public <T> NetworkResponse<T> sendPostLogin(String email, String password) {
-        LoginJson loginJson = new LoginJson(email, password);
-        String jsonBody = gson.toJson(loginJson);
-        return new NetworkResponseSuccess<>(null);
-    } */
 
     private String readStream(InputStream inputStream) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -98,7 +97,7 @@ public class ServerImpl implements Server {
                         inputStream = httpURLClient.getErrorStream();
                         response = readStream(inputStream);
                         ErrorJson errorJson = gson.fromJson(response, ErrorJson.class);
-                        handleResponse(new NetworkResponseFailure(new Error(errorJson.error.code, errorJson.error.status, errorJson.error.reasonCode, errorJson.error.reasonStatus)), myCallback);
+                       // handleResponse(new NetworkResponseFailure(new Error(errorJson.error.code, errorJson.error.status, errorJson.error.reasonCode, errorJson.error.reasonStatus)), myCallback);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

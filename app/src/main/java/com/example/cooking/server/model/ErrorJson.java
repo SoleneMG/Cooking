@@ -1,9 +1,15 @@
 package com.example.cooking.server.model;
 
-public class ErrorJson {
-    public final Error error;
+public abstract class ErrorJson {
+    public final int code;
+    public final String status;
+    public final int reasonCode;
+    public final String reasonStatus;
 
-    public ErrorJson(Error error) {
-        this.error = error;
+    public ErrorJson(int code, String status, int reasonCode, String reasonStatus) {
+        this.code = code;
+        this.status = status;
+        this.reasonCode = reasonCode;
+        this.reasonStatus = reasonStatus;
     }
 }
