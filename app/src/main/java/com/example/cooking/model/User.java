@@ -1,6 +1,9 @@
 package com.example.cooking.model;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
     public final String publicId;
     public final String id;
     public final String email;
@@ -9,5 +12,35 @@ public class User {
         this.publicId = publicId;
         this.id = id;
         this.email = email;
+    }
+
+    protected User(Parcel in) {
+        publicId = in.readString();
+        id = in.readString();
+        email = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(publicId);
+        dest.writeString(id);
+        dest.writeString(email);
     }
 }

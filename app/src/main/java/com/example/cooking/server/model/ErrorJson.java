@@ -1,6 +1,6 @@
 package com.example.cooking.server.model;
 
-public abstract class ErrorJson {
+public class ErrorJson {
     public final int code;
     public final String status;
     public final int reasonCode;

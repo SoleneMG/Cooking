@@ -1,5 +1,7 @@
 package com.example.cooking.model;
 
+import com.example.cooking.R;
+
 public class Error<E> {
     public final E error;
 

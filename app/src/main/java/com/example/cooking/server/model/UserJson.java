@@ -1,6 +1,6 @@
 package com.example.cooking.server.model;
 
-public abstract class UserJson {
+public class UserJson {
     public final String publicId;
     public final String id;
     public final String email;

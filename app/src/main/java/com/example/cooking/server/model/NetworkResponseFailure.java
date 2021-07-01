@@ -2,12 +2,12 @@ package com.example.cooking.server.model;
 
 import com.example.cooking.model.Error;
 
-public class NetworkResponseFailure<T> extends NetworkResponse<T> {
-    public final Error error;
+public class NetworkResponseFailure<E, T> extends NetworkResponse<E, T> {
+    public final Error<E> eError;
 
 
-    public NetworkResponseFailure(final Error error) {
+    public NetworkResponseFailure(final Error<E> eError) {
         super(false);
-        this.error = error;
+        this.eError = eError;
     }
 }

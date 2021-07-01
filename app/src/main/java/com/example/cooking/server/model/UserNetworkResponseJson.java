@@ -1,14 +1,12 @@
 package com.example.cooking.server.model;
 
-import com.example.cooking.model.User;
-
 public class UserNetworkResponseJson {
-    public final User user;
-    public final ErrorJson error;
+    public final UserJson data;
+    public final ErrorJson errorJson;
 
-    public UserNetworkResponseJson(User user, ErrorJson error) {
-        this.user = user;
-        this.error = error;
+    public UserNetworkResponseJson(UserJson data, ErrorJson errorJson) {
+        this.data = data;
+        this.errorJson = errorJson;
     }
 
 }
