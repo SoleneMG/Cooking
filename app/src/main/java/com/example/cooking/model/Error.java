@@ -19,4 +19,11 @@ public class Error<E> {
     public enum NetworkError {
         NETWORK_ERROR
     }
+
+    public enum LoginError{
+        USER_NOT_FOUND,
+        PASSWORD_NOT_MATCH,
+        INVALID_EMAIL,
+        INVALID_PASSWORD
+    }
 }

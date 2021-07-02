@@ -8,6 +8,9 @@
     <string name="language">Langage</string>
     <string name="error_message">\"Quelque chose n\'a pas marché : \"</string>
     <string name="refresh_button_snackbar">ACTUALISER</string>
+    <string name="invalid_email">email invalide</string>
+    <string name="successful_authentication">Authentification réussie</string>
+    <string name="password_testing">passwordTest</string>
     <string-array name="language_label_spinner">
         <item>Anglais</item>
         <item>Français</item>

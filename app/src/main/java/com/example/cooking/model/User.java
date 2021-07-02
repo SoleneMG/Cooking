@@ -3,6 +3,8 @@ package com.example.cooking.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class User implements Parcelable {
     public final String publicId;
     public final String id;
@@ -43,4 +45,13 @@ public class User implements Parcelable {
         dest.writeString(id);
         dest.writeString(email);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id.equals(user.id);
+    }
+
 }

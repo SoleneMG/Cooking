@@ -2,11 +2,9 @@ package com.example.cooking.domain;
 
 import com.example.cooking.server.MyCallback;
 import com.example.cooking.server.Server;
-import com.example.cooking.server.serverImpl.ServerImpl;
 
 public class RegisterLogic {
     private final Server server;
-
 
     public RegisterLogic(Server server) {
         this.server = server;

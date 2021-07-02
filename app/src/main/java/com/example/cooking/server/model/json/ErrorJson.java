@@ -1,4 +1,4 @@
-package com.example.cooking.server.model;
+package com.example.cooking.server.model.json;
 
 public class ErrorJson {
     public final int code;

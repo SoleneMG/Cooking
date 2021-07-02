@@ -1,4 +1,4 @@
-package com.example.cooking.server.serverImpl;
+package com.example.cooking.server.serverImpl.httpRequestImpl;
 
 
 import android.os.Handler;
@@ -9,12 +9,10 @@ import androidx.core.os.HandlerCompat;
 
 import com.example.cooking.server.MyCallback;
 import com.example.cooking.server.model.NetworkResponse;
-import com.example.cooking.server.model.NetworkResponseFailure;
 import com.example.cooking.server.model.NetworkResponseSuccess;
 import com.example.cooking.server.Server;
-import com.example.cooking.model.Error;
-import com.example.cooking.server.model.ErrorJson;
-import com.example.cooking.server.model.RegisterJson;
+import com.example.cooking.server.model.json.ErrorJson;
+import com.example.cooking.server.model.register.RegisterJson;
 import com.example.cooking.model.User;
 import com.google.gson.Gson;
 
@@ -26,13 +24,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.cooking.server.serverImpl.RetrofitImpl.EXECUTOR;
+import static com.example.cooking.server.serverImpl.retrofitImpl.RetrofitImpl.EXECUTOR;
 
 public class ServerImpl implements Server {
 
@@ -46,6 +39,11 @@ public class ServerImpl implements Server {
         RegisterJson registerJson = new RegisterJson(email, password, language);
         String jsonBody = gson.toJson(registerJson);
         httpRequest(jsonBody, myCallback);
+    }
+
+    @Override
+    public void sendPostLogin(String email, String password, MyCallback myCallback) {
+
     }
 
 
@@ -114,7 +112,7 @@ public class ServerImpl implements Server {
         myHandler.post(new Runnable() {
             @Override
             public void run() {
-                myCallback.onComplete(networkResponse);
+                myCallback.onCompleteLoginCall(networkResponse);
             }
         });
     }

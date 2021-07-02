@@ -2,7 +2,6 @@ package com.example.cooking.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +19,6 @@ import com.example.cooking.server.MyCallback;
 import com.example.cooking.server.model.NetworkResponse;
 import com.example.cooking.server.model.NetworkResponseFailure;
 import com.example.cooking.server.model.NetworkResponseSuccess;
-import com.example.cooking.server.model.UserJson;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -43,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             spinner.setOnItemSelectedListener(this);
             spinner.setAdapter(adapter);
         }
+        // TESTING
+        password.setText(R.string.password_testing);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             String passwordString = password.getText().toString();
             logic.register(emailString, passwordString, language, new MyCallback() {
                 @Override
-                public void onComplete(NetworkResponse<Error.RegisterError, User> networkResponse) {
+                public void onCompleteRegisterCall(NetworkResponse<Error.RegisterError, User> networkResponse) {
                     if (networkResponse instanceof NetworkResponseSuccess) {
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         User user = ((NetworkResponseSuccess<Error.RegisterError, User>) networkResponse).data;
@@ -84,6 +84,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                                 .setDuration(2000)
                                 .show();
                     }
+                }
+
+                @Override
+                public void onCompleteLoginCall(NetworkResponse<Error.LoginError, User> networkResponse) {
+                // do nothing
                 }
             });
         }
@@ -113,6 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     }
                 }
             });
+
              */
 
 
