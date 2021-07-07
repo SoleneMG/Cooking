@@ -1,7 +1,7 @@
-package com.example.cooking.server.model.login;
+package com.example.cooking.data.server.model.login;
 
-import com.example.cooking.server.model.json.ErrorJson;
-import com.example.cooking.server.model.json.UserJson;
+import com.example.cooking.data.server.model.json.ErrorJson;
+import com.example.cooking.data.server.model.json.UserJson;
 
 public class LoginNetworkResponseJson {
     public final UserJson data;

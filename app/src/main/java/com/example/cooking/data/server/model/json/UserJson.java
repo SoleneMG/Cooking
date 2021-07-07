@@ -1,4 +1,4 @@
-package com.example.cooking.server.model.json;
+package com.example.cooking.data.server.model.json;
 
 public class UserJson {
     public final String publicId;

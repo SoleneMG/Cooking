@@ -1,7 +1,4 @@
-package com.example.cooking.server.model;
-
-import com.example.cooking.model.User;
-import com.example.cooking.server.model.NetworkResponse;
+package com.example.cooking.data.server.model;
 
 public class NetworkResponseSuccess<E, T> extends NetworkResponse<E, T> {
     public final T data;

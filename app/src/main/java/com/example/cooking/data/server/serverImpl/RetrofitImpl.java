@@ -1,23 +1,24 @@
-package com.example.cooking.server.serverImpl.retrofitImpl;
+package com.example.cooking.data.server.serverImpl;
 
 import android.os.Handler;
 import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
 
+import com.example.cooking.data.server.CookServer;
 import com.example.cooking.model.Error;
 import com.example.cooking.model.User;
-import com.example.cooking.server.MyCallback;
-import com.example.cooking.server.Server;
-import com.example.cooking.server.model.ErrorRetrofitResponse;
-import com.example.cooking.server.model.NetworkResponse;
-import com.example.cooking.server.model.NetworkResponseFailure;
-import com.example.cooking.server.model.NetworkResponseSuccess;
-import com.example.cooking.server.model.json.TokenJson;
-import com.example.cooking.server.model.login.LoginJson;
-import com.example.cooking.server.model.login.LoginNetworkResponseJson;
-import com.example.cooking.server.model.register.RegisterJson;
-import com.example.cooking.server.model.register.RegisterNetworkResponseJson;
+import com.example.cooking.data.server.MyCallback;
+import com.example.cooking.data.server.Server;
+import com.example.cooking.data.server.model.ErrorRetrofitResponse;
+import com.example.cooking.data.server.model.NetworkResponse;
+import com.example.cooking.data.server.model.NetworkResponseFailure;
+import com.example.cooking.data.server.model.NetworkResponseSuccess;
+import com.example.cooking.data.server.model.json.TokenJson;
+import com.example.cooking.data.server.model.login.LoginJson;
+import com.example.cooking.data.server.model.login.LoginNetworkResponseJson;
+import com.example.cooking.data.server.model.register.RegisterJson;
+import com.example.cooking.data.server.model.register.RegisterNetworkResponseJson;
 import com.google.gson.Gson;
 
 import java.io.IOException;

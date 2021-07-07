@@ -1,4 +1,4 @@
-package com.example.cooking.server.model;
+package com.example.cooking.data.server.model;
 
 import com.example.cooking.model.Error;
 

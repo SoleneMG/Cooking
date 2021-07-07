@@ -12,10 +12,10 @@ import com.example.cooking.R;
 import com.example.cooking.domain.LoginLogic;
 import com.example.cooking.model.Error;
 import com.example.cooking.model.User;
-import com.example.cooking.server.MyCallback;
-import com.example.cooking.server.model.NetworkResponse;
-import com.example.cooking.server.model.NetworkResponseFailure;
-import com.example.cooking.server.model.NetworkResponseSuccess;
+import com.example.cooking.data.server.MyCallback;
+import com.example.cooking.data.server.model.NetworkResponse;
+import com.example.cooking.data.server.model.NetworkResponseFailure;
+import com.example.cooking.data.server.model.NetworkResponseSuccess;
 import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivity extends AppCompatActivity {
@@ -48,12 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onCompleteLoginCall(NetworkResponse<Error.LoginError, User> networkResponse) {
                     if (networkResponse instanceof NetworkResponseSuccess) {
-                        Snackbar.make(LoginActivity.this, view, getString(R.string.successful_authentication), Snackbar.LENGTH_LONG)
-                                .setBackgroundTint(getColor(R.color.primary))
-                                .setActionTextColor(getColor(R.color.white))
-                                .setTextColor(getColor(R.color.white))
-                                .setDuration(2000)
-                                .show();
+                        Intent intent = new Intent(LoginActivity.this, IngredientsActivity.class);
+                        startActivity(intent);
                     } else {
                         Error.LoginError registerError = ((NetworkResponseFailure<Error.LoginError, User>) networkResponse).eError.error;
                         Snackbar.make(LoginActivity.this, view, getString(R.string.error_message)+ " "+registerError.name(), Snackbar.LENGTH_LONG)

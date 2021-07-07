@@ -1,4 +1,4 @@
-package com.example.cooking.server.model.login;
+package com.example.cooking.data.server.model.login;
 
 public class LoginJson {
     public final String email, password;

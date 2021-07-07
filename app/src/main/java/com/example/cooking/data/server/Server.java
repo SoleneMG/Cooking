@@ -1,4 +1,6 @@
-package com.example.cooking.server;
+package com.example.cooking.data.server;
+
+import com.example.cooking.data.server.MyCallback;
 
 public interface Server {
 

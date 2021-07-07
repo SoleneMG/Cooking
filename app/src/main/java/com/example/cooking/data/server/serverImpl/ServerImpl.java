@@ -1,4 +1,4 @@
-package com.example.cooking.server.serverImpl.httpRequestImpl;
+package com.example.cooking.data.server.serverImpl;
 
 
 import android.os.Handler;
@@ -7,12 +7,12 @@ import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 
-import com.example.cooking.server.MyCallback;
-import com.example.cooking.server.model.NetworkResponse;
-import com.example.cooking.server.model.NetworkResponseSuccess;
-import com.example.cooking.server.Server;
-import com.example.cooking.server.model.json.ErrorJson;
-import com.example.cooking.server.model.register.RegisterJson;
+import com.example.cooking.data.server.model.NetworkResponse;
+import com.example.cooking.data.server.model.NetworkResponseSuccess;
+import com.example.cooking.data.server.model.json.ErrorJson;
+import com.example.cooking.data.server.model.register.RegisterJson;
+import com.example.cooking.data.server.MyCallback;
+import com.example.cooking.data.server.Server;
 import com.example.cooking.model.User;
 import com.google.gson.Gson;
 
@@ -25,7 +25,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static com.example.cooking.server.serverImpl.retrofitImpl.RetrofitImpl.EXECUTOR;
+import static com.example.cooking.data.server.serverImpl.RetrofitImpl.EXECUTOR;
 
 public class ServerImpl implements Server {
 

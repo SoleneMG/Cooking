@@ -1,4 +1,4 @@
-package com.example.cooking.server.model.register;
+package com.example.cooking.data.server.model.register;
 
 public class RegisterJson {
     public final String email, password, language;

@@ -1,7 +1,7 @@
 package com.example.cooking.domain;
 
-import com.example.cooking.server.MyCallback;
-import com.example.cooking.server.Server;
+import com.example.cooking.data.server.MyCallback;
+import com.example.cooking.data.server.Server;
 
 public class LoginLogic {
     private final Server server;

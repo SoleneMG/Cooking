@@ -1,6 +1,6 @@
-package com.example.cooking.server.model;
+package com.example.cooking.data.server.model;
 
-import com.example.cooking.server.model.json.ErrorJson;
+import com.example.cooking.data.server.model.json.ErrorJson;
 import com.google.gson.annotations.SerializedName;
 
 public class ErrorRetrofitResponse {

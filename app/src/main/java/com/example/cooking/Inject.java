@@ -2,8 +2,8 @@ package com.example.cooking;
 
 import com.example.cooking.domain.LoginLogic;
 import com.example.cooking.domain.RegisterLogic;
-import com.example.cooking.server.Server;
-import com.example.cooking.server.serverImpl.retrofitImpl.RetrofitImpl;
+import com.example.cooking.data.server.Server;
+import com.example.cooking.data.server.serverImpl.RetrofitImpl;
 
 public class Inject {
     private static final Server SERVER = new RetrofitImpl();

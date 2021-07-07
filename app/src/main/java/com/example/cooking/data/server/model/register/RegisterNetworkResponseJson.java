@@ -1,7 +1,7 @@
-package com.example.cooking.server.model.register;
+package com.example.cooking.data.server.model.register;
 
-import com.example.cooking.server.model.json.ErrorJson;
-import com.example.cooking.server.model.json.UserJson;
+import com.example.cooking.data.server.model.json.ErrorJson;
+import com.example.cooking.data.server.model.json.UserJson;
 
 public class RegisterNetworkResponseJson {
     public final UserJson data;

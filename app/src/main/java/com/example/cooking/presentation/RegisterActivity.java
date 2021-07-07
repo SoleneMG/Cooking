@@ -15,10 +15,10 @@ import com.example.cooking.R;
 import com.example.cooking.domain.RegisterLogic;
 import com.example.cooking.model.Error;
 import com.example.cooking.model.User;
-import com.example.cooking.server.MyCallback;
-import com.example.cooking.server.model.NetworkResponse;
-import com.example.cooking.server.model.NetworkResponseFailure;
-import com.example.cooking.server.model.NetworkResponseSuccess;
+import com.example.cooking.data.server.MyCallback;
+import com.example.cooking.data.server.model.NetworkResponse;
+import com.example.cooking.data.server.model.NetworkResponseFailure;
+import com.example.cooking.data.server.model.NetworkResponseSuccess;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
