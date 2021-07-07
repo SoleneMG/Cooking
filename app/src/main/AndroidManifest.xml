@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cooking"
         android:usesCleartextTraffic="true">
+        <activity android:name=".presentation.DisplayIngredientsActivity"></activity>
         <activity android:name=".presentation.LoginActivity" />
         <activity android:name=".presentation.RegisterActivity">
             <intent-filter>
