@@ -36,8 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private Spinner spinner;
     private String language;
     public static final String EXTRA_MESSAGE = "RegisterActivity";
-    private CookingDatabase database = Inject.database();
-    private UserDao userDao;
+
 
 
     @Override
@@ -83,14 +82,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     if (networkResponse instanceof NetworkResponseSuccess) {
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         User user = ((NetworkResponseSuccess<Error.RegisterError, User>) networkResponse).data;
-                        userDao = ((RoomDatabaseImpl) database).userDao();
-                        MyApplication.EXECUTOR.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                userDao.insert(user);
-                            }
-                        });
-                        LiveData<List<User>> userList = ((RoomDatabaseImpl) database).userDao().getAll();
                         intent.putExtra(EXTRA_MESSAGE, user);
                         startActivity(intent);
                     } else {

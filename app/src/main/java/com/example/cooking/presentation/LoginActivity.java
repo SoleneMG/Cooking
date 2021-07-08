@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.cooking.Inject;
+import com.example.cooking.MyApplication;
 import com.example.cooking.R;
+import com.example.cooking.data.database.CookingDatabase;
+import com.example.cooking.data.database.databaseImpl.RoomDatabaseImpl;
+import com.example.cooking.data.database.databaseImpl.UserDao;
 import com.example.cooking.domain.LoginLogic;
 import com.example.cooking.model.Error;
 import com.example.cooking.model.Token;
@@ -22,6 +26,9 @@ import com.google.android.material.snackbar.Snackbar;
 public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
     private LoginLogic logic = Inject.loginActivityLogic();
+    private User user;
+    private CookingDatabase database = Inject.database();
+    private UserDao userDao;
 
 
     @Override
@@ -31,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         Intent intent = getIntent();
-        User user = intent.getParcelableExtra(RegisterActivity.EXTRA_MESSAGE);
+        user = intent.getParcelableExtra(RegisterActivity.EXTRA_MESSAGE);
         email.setText(user.email);
         // TESTING
         password.setText(R.string.password_testing);
@@ -50,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onCompleteLoginCall(NetworkResponse<Error.LoginError, Token> networkResponse) {
                     if (networkResponse instanceof NetworkResponseSuccess) {
+                        userDao = ((RoomDatabaseImpl) database).userDao();
+                        MyApplication.EXECUTOR.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                userDao.insert(user);
+                            }
+                        });
                         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                         startActivity(intent);
 
