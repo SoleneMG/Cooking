@@ -2,6 +2,7 @@ package com.example.cooking.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,17 +10,25 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.example.cooking.Inject;
+import com.example.cooking.MyApplication;
 import com.example.cooking.R;
-import com.example.cooking.domain.RegisterLogic;
-import com.example.cooking.model.Error;
-import com.example.cooking.model.User;
+import com.example.cooking.data.database.CookingDatabase;
+import com.example.cooking.data.database.databaseImpl.RoomDatabaseImpl;
+import com.example.cooking.data.database.databaseImpl.UserDao;
 import com.example.cooking.data.server.MyCallback;
 import com.example.cooking.data.server.model.NetworkResponse;
 import com.example.cooking.data.server.model.NetworkResponseFailure;
 import com.example.cooking.data.server.model.NetworkResponseSuccess;
+import com.example.cooking.domain.RegisterLogic;
+import com.example.cooking.model.Error;
+import com.example.cooking.model.Token;
+import com.example.cooking.model.User;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private final RegisterLogic logic = Inject.registerActivityLogic();
@@ -27,6 +36,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private Spinner spinner;
     private String language;
     public static final String EXTRA_MESSAGE = "RegisterActivity";
+    private CookingDatabase database = Inject.database();
+    private UserDao userDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             spinner.setAdapter(adapter);
         }
         // TESTING
+        email.setText(R.string.email_test);
         password.setText(R.string.password_testing);
     }
 
@@ -70,11 +83,19 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     if (networkResponse instanceof NetworkResponseSuccess) {
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         User user = ((NetworkResponseSuccess<Error.RegisterError, User>) networkResponse).data;
+                        userDao = ((RoomDatabaseImpl) database).userDao();
+                        MyApplication.EXECUTOR.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                userDao.insert(user);
+                            }
+                        });
+                        LiveData<List<User>> userList = ((RoomDatabaseImpl) database).userDao().getAll();
                         intent.putExtra(EXTRA_MESSAGE, user);
                         startActivity(intent);
                     } else {
                         Error.RegisterError registerError = ((NetworkResponseFailure<Error.RegisterError, User>) networkResponse).eError.error;
-                        Snackbar.make(RegisterActivity.this, view, getString(R.string.error_message)+ " "+registerError.name(), Snackbar.LENGTH_LONG)
+                        Snackbar.make(RegisterActivity.this, view, getString(R.string.error_message) + " " + registerError.name(), Snackbar.LENGTH_LONG)
                                 .setAction(R.string.refresh_button_snackbar, v -> {
                                     Register(view);
                                 })
@@ -87,8 +108,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 }
 
                 @Override
-                public void onCompleteLoginCall(NetworkResponse<Error.LoginError, User> networkResponse) {
-                // do nothing
+                public void onCompleteLoginCall(NetworkResponse<Error.LoginError, Token> networkResponse) {
+                    // do nothing
                 }
             });
         }

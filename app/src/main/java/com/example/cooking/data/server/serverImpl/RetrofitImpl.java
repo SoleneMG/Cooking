@@ -15,9 +15,9 @@ import com.example.cooking.data.server.model.NetworkResponse;
 import com.example.cooking.data.server.model.NetworkResponseFailure;
 import com.example.cooking.data.server.model.NetworkResponseSuccess;
 import com.example.cooking.data.server.model.json.TokenJson;
-import com.example.cooking.data.server.model.login.LoginJson;
+import com.example.cooking.data.server.model.login.LoginBodyJson;
 import com.example.cooking.data.server.model.login.LoginNetworkResponseJson;
-import com.example.cooking.data.server.model.register.RegisterJson;
+import com.example.cooking.data.server.model.register.RegisterBodyJson;
 import com.example.cooking.data.server.model.register.RegisterNetworkResponseJson;
 import com.google.gson.Gson;
 
@@ -30,8 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.cooking.MyApplication.EXECUTOR;
+
 public class RetrofitImpl implements Server {
-    public static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(4);
     public final retrofit2.Retrofit retrofit = new retrofit2.Retrofit.Builder().baseUrl("http://192.168.1.17:8080/").addConverterFactory(GsonConverterFactory.create()).build();
     public final CookServer cookServer = retrofit.create(CookServer.class);
     private final Handler myHandler = HandlerCompat.createAsync(Looper.getMainLooper());
@@ -39,7 +40,7 @@ public class RetrofitImpl implements Server {
     @Override
     public void sendPostRegister(String email, String password, String language, MyCallback myCallback) {
         EXECUTOR.submit(() -> {
-            Call<RegisterNetworkResponseJson> call = cookServer.postRegister(new RegisterJson(email, password, language));
+            Call<RegisterNetworkResponseJson> call = cookServer.postRegister(new RegisterBodyJson(email, password, language));
             call.enqueue(new Callback<RegisterNetworkResponseJson>() {
                 @Override
                 public void onResponse(Call<RegisterNetworkResponseJson> call, Response<RegisterNetworkResponseJson> response) {
@@ -82,12 +83,12 @@ public class RetrofitImpl implements Server {
     @Override
     public void sendPostLogin(String email, String password, MyCallback myCallback) {
         EXECUTOR.submit(() -> {
-            Call<LoginNetworkResponseJson> call = cookServer.postLogin(new LoginJson(email, password));
+            Call<LoginNetworkResponseJson> call = cookServer.postLogin(new LoginBodyJson(email, password));
             call.enqueue(new Callback<LoginNetworkResponseJson>() {
                 @Override
                 public void onResponse(Call<LoginNetworkResponseJson> call, Response<LoginNetworkResponseJson> response) {
                     if (response.body() != null && response.errorBody() == null && response.isSuccessful()) {
-                        handleResponse("login", new NetworkResponseSuccess<Error.LoginError, TokenJson>(new TokenJson(response.body().refreshToken, response.body().accessToken)), myCallback);
+                        handleResponse("login", new NetworkResponseSuccess<Error.LoginError, TokenJson>(new TokenJson(response.body().data.refreshToken, response.body().data.accessToken)), myCallback);
                     } else {
                         ErrorRetrofitResponse errorRetrofitResponse = null;
                         try {

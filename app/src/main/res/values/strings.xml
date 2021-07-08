@@ -10,6 +10,7 @@
     <string name="invalid_email">email invalid</string>
     <string name="successful_authentication">Successful authentication</string>
     <string name="password_testing">passwordTest</string>
+    <string name="email_test">email@test.fr</string>
     <string-array name="language_label_spinner">
         <item>English</item>
         <item>French</item>

@@ -1,10 +1,15 @@
 package com.example.cooking.data.server.model.login;
 
-public class LoginJson {
-    public final String email, password;
+import com.example.cooking.data.server.model.json.UserJson;
 
-    public LoginJson(String email, String password) {
-        this.email = email;
-        this.password = password;
+public class LoginJson {
+    public final UserJson user;
+    public final String refreshToken;
+    public final String accessToken;
+
+    public LoginJson(UserJson user, String refreshToken, String accessToken) {
+        this.user = user;
+        this.refreshToken = refreshToken;
+        this.accessToken = accessToken;
     }
 }

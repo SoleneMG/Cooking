@@ -3,11 +3,20 @@ package com.example.cooking.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Objects;
 
+@Entity(tableName = "user")
 public class User implements Parcelable {
+    @NonNull
     public final String publicId;
+    @PrimaryKey
+    @NonNull
     public final String id;
+    @NonNull
     public final String email;
 
     public User(String publicId, String id, String email) {

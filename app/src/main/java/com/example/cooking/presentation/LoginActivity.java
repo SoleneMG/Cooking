@@ -11,6 +11,7 @@ import com.example.cooking.Inject;
 import com.example.cooking.R;
 import com.example.cooking.domain.LoginLogic;
 import com.example.cooking.model.Error;
+import com.example.cooking.model.Token;
 import com.example.cooking.model.User;
 import com.example.cooking.data.server.MyCallback;
 import com.example.cooking.data.server.model.NetworkResponse;
@@ -21,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
     private LoginLogic logic = Inject.loginActivityLogic();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +48,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCompleteLoginCall(NetworkResponse<Error.LoginError, User> networkResponse) {
+                public void onCompleteLoginCall(NetworkResponse<Error.LoginError, Token> networkResponse) {
                     if (networkResponse instanceof NetworkResponseSuccess) {
-                        Intent intent = new Intent(LoginActivity.this, IngredientsActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                         startActivity(intent);
+
                     } else {
-                        Error.LoginError registerError = ((NetworkResponseFailure<Error.LoginError, User>) networkResponse).eError.error;
-                        Snackbar.make(LoginActivity.this, view, getString(R.string.error_message)+ " "+registerError.name(), Snackbar.LENGTH_LONG)
+                        Error.LoginError loginError = ((NetworkResponseFailure<Error.LoginError, Token>) networkResponse).eError.error;
+                        Snackbar.make(LoginActivity.this, view, getString(R.string.error_message)+ " "+loginError.name(), Snackbar.LENGTH_LONG)
                                 .setBackgroundTint(getColor(R.color.primary))
                                 .setActionTextColor(getColor(R.color.white))
                                 .setTextColor(getColor(R.color.white))

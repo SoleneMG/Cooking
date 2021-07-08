@@ -10,7 +10,7 @@ import androidx.core.os.HandlerCompat;
 import com.example.cooking.data.server.model.NetworkResponse;
 import com.example.cooking.data.server.model.NetworkResponseSuccess;
 import com.example.cooking.data.server.model.json.ErrorJson;
-import com.example.cooking.data.server.model.register.RegisterJson;
+import com.example.cooking.data.server.model.register.RegisterBodyJson;
 import com.example.cooking.data.server.MyCallback;
 import com.example.cooking.data.server.Server;
 import com.example.cooking.model.User;
@@ -25,7 +25,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static com.example.cooking.data.server.serverImpl.RetrofitImpl.EXECUTOR;
+import static com.example.cooking.MyApplication.EXECUTOR;
 
 public class ServerImpl implements Server {
 
@@ -36,8 +36,8 @@ public class ServerImpl implements Server {
 
     @Override
     public void sendPostRegister(String email, String password, String language, MyCallback myCallback) {
-        RegisterJson registerJson = new RegisterJson(email, password, language);
-        String jsonBody = gson.toJson(registerJson);
+        RegisterBodyJson registerBodyJson = new RegisterBodyJson(email, password, language);
+        String jsonBody = gson.toJson(registerBodyJson);
         httpRequest(jsonBody, myCallback);
     }
 
